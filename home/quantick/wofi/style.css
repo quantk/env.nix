@@ -1,0 +1,68 @@
+/* === Global === */
+* {
+  font-family: "JetBrainsMono Nerd Font", "Inter", monospace;
+  font-size: 14px;
+}
+
+/* === Window === */
+window {
+  background-color: rgba(24, 24, 37, 0.96); /* deep dark */
+  border-radius: 16px;
+  border: 1px solid rgba(137, 180, 250, 0.15);
+}
+
+/* === Input === */
+#input {
+  margin: 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+
+  border: 1px solid rgba(137, 180, 250, 0.25);
+}
+
+#input:focus {
+  border-color: #89b4fa;
+}
+
+/* === Scroll === */
+#scroll {
+  margin: 0 10px 10px 10px;
+}
+
+/* === Entries === */
+#entry {
+  margin: 4px 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  background-color: transparent;
+  color: #bac2de;
+}
+
+#entry:selected {
+  background: linear-gradient(
+    90deg,
+    rgba(137, 180, 250, 0.25),
+    rgba(203, 166, 247, 0.25)
+  );
+  color: #f5e0dc;
+}
+
+/* === Icons === */
+#entry image {
+  margin-right: 12px;
+}
+
+/* === Text === */
+#text {
+  color: inherit;
+}
+
+/* === Subtle separator effect === */
+#entry:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+

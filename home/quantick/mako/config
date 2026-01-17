@@ -1,0 +1,12 @@
+# Mako (Wayland notification daemon) configuration
+font=JetBrainsMono Nerd Font Mono 12
+background-color=#282828
+text-color=#FFFFFF
+border-color=#888888
+border-size=2
+padding=8
+default-timeout=5000
+# position (top-right by default); for example:
+anchor=top-right
+# max notifications displayed at once:
+max-visible=5

@@ -1,0 +1,114 @@
+* {
+  font-family: JetBrainsMono Nerd Font;
+  font-size: 13px;
+  min-height: 0;
+}
+
+#mpris {
+  margin: 6px 6px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+#mpris.paused {
+  opacity: 0.75;
+}
+
+#network, #cpu, #memory, #mpris, #pulseaudio, #tray, #clock, #workspaces {
+  margin: 6px 6px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+}
+
+#network, #cpu, #memory {
+  font-weight: 600;
+}
+
+/* Немного “статусности” */
+#network.disconnected {
+  opacity: 0.6;
+}
+
+#cpu {
+  letter-spacing: 0.2px;
+}
+
+#memory {
+  letter-spacing: 0.2px;
+}
+
+window#waybar {
+  background: rgba(16, 16, 18, 0.72);
+  color: #e7e7ea;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Общий “pill” стиль для модулей */
+#clock,
+#pulseaudio,
+#tray,
+#workspaces {
+  margin: 6px 6px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+}
+
+/* Workspaces */
+#workspaces {
+  padding: 4px 6px;
+}
+
+#workspaces button {
+  padding: 4px 10px;
+  margin: 0 3px;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(231, 231, 234, 0.55);
+  border: 1px solid transparent;
+  transition: all 120ms ease;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(231, 231, 234, 0.85);
+}
+
+#workspaces button.active {
+  background: rgba(59, 130, 246, 0.22);
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  color: #eaf2ff;
+}
+
+/* Clock */
+#clock {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Audio */
+#pulseaudio {
+  font-weight: 600;
+}
+
+#pulseaudio.muted {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(231, 231, 234, 0.55);
+}
+
+/* Tray icons spacing & hover */
+#tray > .passive {
+  -gtk-icon-effect: dim;
+  opacity: 0.8;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+

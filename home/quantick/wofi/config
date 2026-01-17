@@ -1,0 +1,12 @@
+# Wofi configuration (application launcher)
+# Wofi in "drun" mode (application menu)
+show = drun
+# Appearance settings
+width = 40%
+height = 30%
+columns = 1
+hide_scroll = true
+prompt = Launch:
+# Use the custom style.css
+style = /home/quantick/.config/wofi/style.css
+gtk_dark = true
