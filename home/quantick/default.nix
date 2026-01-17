@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -26,4 +26,3 @@
 
   xdg.enable = true;
 }
-

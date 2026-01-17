@@ -6,20 +6,20 @@
   # =========================
 
   programs.hyprland = {
-    enable = true; 
+    enable = true;
     xwayland.enable = true;
   };
 
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono 
+    nerd-fonts.jetbrains-mono
     noto-fonts-color-emoji
   ];
-  console.font = "Lat2-Terminus16"; 
+  console.font = "Lat2-Terminus16";
   environment.variables.XCURSOR_THEME = "Bibata-Modern-Ice";
   environment.variables.XCURSOR_SIZE = "24";
 
   environment.sessionVariables = {
-    ELECTRON_OZONE_PLATFORM_HINT = "auto"; 
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
     WLR_NO_HARDWARE_CURSORS = "1";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
@@ -34,7 +34,7 @@
         user = "greeter";
       };
       terminal = {
-        vt = 1; 
+        vt = 1;
       };
     };
   };
@@ -50,8 +50,8 @@
     playerctl
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
-    greetd tuigreet
+    greetd
+    tuigreet
     hyprpolkitagent
   ];
 }
-

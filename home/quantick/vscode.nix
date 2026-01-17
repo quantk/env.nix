@@ -1,10 +1,9 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 {
   # =========================
   # Visual Studio Code (+ plugins)
   # =========================
-  
 
   programs.vscode = {
     enable = true;

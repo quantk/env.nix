@@ -20,33 +20,33 @@
         "sudo"
         "docker"
         "kubectl"
-	"colored-man-pages"
-	"command-not-found"
+        "colored-man-pages"
+        "command-not-found"
       ];
     };
-    
+
     initContent = ''
-    # p10k instant prompt
-    if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-      source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
-    fi
+      # p10k instant prompt
+      if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
 
-    # disable omz auto update
-    export DISABLE_AUTO_UPDATE="true"
-    export ZSH_DISABLE_COMPFIX="true"
-    export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD="true"
+      # disable omz auto update
+      export DISABLE_AUTO_UPDATE="true"
+      export ZSH_DISABLE_COMPFIX="true"
+      export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD="true"
 
-    # Powerlevel10k
-    source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-    [[ -f ~/.config/zsh/.p10k.zsh ]] && source ~/.config/zsh/.p10k.zsh
+      # Powerlevel10k
+      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      [[ -f ~/.config/zsh/.p10k.zsh ]] && source ~/.config/zsh/.p10k.zsh
 
-    # completion cache 
-    zstyle ':completion:*' use-cache on
-    zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/zcompcache"
+      # completion cache 
+      zstyle ':completion:*' use-cache on
+      zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/zcompcache"
 
-    setopt HIST_IGNORE_ALL_DUPS
-    setopt SHARE_HISTORY
-    setopt INC_APPEND_HISTORY
+      setopt HIST_IGNORE_ALL_DUPS
+      setopt SHARE_HISTORY
+      setopt INC_APPEND_HISTORY
     '';
 
     shellAliases = {

@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # =========================
   # Audio
   # =========================
-#  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -19,12 +18,4 @@
     helvum
     playerctl
   ];
-
-  # services.pipewire = {
-  #   enable = true;
-  #   alsa.enable = true;
-  #   pulse.enable = true;
-  # };
-
 }
-

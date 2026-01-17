@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # =========================
@@ -6,7 +6,11 @@
   # =========================
 
   environment.systemPackages = with pkgs; [
-    git less wget htop btop
+    git
+    less
+    wget
+    htop
+    btop
     kitty
     firefox
     gnome-calendar
@@ -18,4 +22,3 @@
     MOZ_ENABLE_WAYLAND = "1";
   };
 }
-
