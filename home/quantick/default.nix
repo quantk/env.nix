@@ -6,6 +6,7 @@
     ./git.nix
     ./shell.nix
     ./vscode.nix
+    ./flameshot.nix
 
     ./hypr/default.nix
     ./waybar/default.nix

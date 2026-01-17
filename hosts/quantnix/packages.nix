@@ -8,12 +8,16 @@
   environment.systemPackages = with pkgs; [
     git
     less
+    ripgrep
+    nerd-fonts.jetbrains-mono
+    noto-fonts-color-emoji
+    zsh-powerlevel10k
     wget
     htop
     btop
+    ranger
     kitty
     firefox
-    gnome-calendar
     pavucontrol
     networkmanagerapplet
   ];
