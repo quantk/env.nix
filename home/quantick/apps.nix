@@ -24,6 +24,5 @@
     #claude-code
     flameshot
     grim
-    slurp
   ];
 }
