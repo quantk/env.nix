@@ -20,7 +20,7 @@
   time.timeZone = "Europe/Moscow";
 
   security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo.wheelNeedsPassword = true;
 
   system.stateVersion = "26.05";
 }
