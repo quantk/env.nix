@@ -13,6 +13,10 @@
     bibata-cursors                                # Cursor theme
     zsh-powerlevel10k
     neovim wl-clipboard
+    nil nixpkgs-fmt
+    jetbrains.idea
+    telegram-desktop
+    ripgrep
   ];
   
   home.sessionVariables = {
