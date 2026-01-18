@@ -6,7 +6,6 @@
   # =========================
 
   home.packages = with pkgs; [
-    waybar
     wofi
     mako
     hyprlock

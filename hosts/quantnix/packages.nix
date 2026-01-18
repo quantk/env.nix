@@ -20,6 +20,7 @@
     firefox
     pavucontrol
     networkmanagerapplet
+    jq
   ];
 
   environment.sessionVariables = {

@@ -14,4 +14,3 @@ vim.opt.smartindent = true
 -- ---------- Visual mode indentation ----------
 vim.keymap.set("v", "<Tab>", ">gv", { silent = true, desc = "Indent right" })
 vim.keymap.set("v", "<S-Tab>", "<gv", { silent = true, desc = "Indent left" })
-

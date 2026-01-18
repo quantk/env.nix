@@ -4,9 +4,9 @@
   "height": 50,
   "spacing": 10,
 
-  "modules-left": ["network", "cpu", "memory", "bandwidth"],
-  "modules-center": ["hyprland/workspaces", "clock"],
-  "modules-right": ["mpris", "pulseaudio", "tray"],
+  "modules-left": ["cpu", "memory", "network"],
+  "modules-center": ["hyprland/workspaces", "clock", "custom/weather"],
+  "modules-right": ["mpris", "pulseaudio", "tray", "hyprland/language"],
 
   "hyprland/workspaces": {
     "format": "{name}",
@@ -34,11 +34,9 @@
       "stopped": ""
     },
     "tooltip": true,
-    "on-click": "playerctl play-next",
+    "on-click": "playerctl next",
     "on-click-right": "playerctl previous",
     "on-click-middle": "playerctl play-pause",
-    "on-scroll-up": "playerctl previous",
-    "on-scroll-down": "playerctl next",
     "max-length": 45
   },
 
@@ -71,13 +69,6 @@
     "on-click": "nm-connection-editor"
   },
 
-  "bandwidth": {
-    "interface": "auto",
-    "format": "󰇚 {downloadBandwidthBits} 󰕒 {uploadBandwidthBits}",
-    "interval": 1,
-    "tooltip": true
-  },
-
   "cpu": {
     "format": " {usage}%",
     "tooltip": true
@@ -87,6 +78,23 @@
     "format": " {percentage}%",
     "tooltip": true,
     "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+  },
+
+  "custom/weather": {
+    "exec": "~/.config/waybar/scripts/wttr.sh",
+    "return-type": "json",
+    "interval": 1200,
+    "format": "{}",
+    "tooltip": true
+  },
+
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "🇺🇸 EN",
+    "format-ru": "🇷🇺 RU",
+    "on-click": "hyprctl switchxkblayout logitech-usb-keyboard next",
+    "tooltip": false
   }
+
 }
 
