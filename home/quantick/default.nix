@@ -10,6 +10,7 @@
 
     ./hypr/default.nix
     ./waybar/default.nix
+    ./wlogout/default.nix
     ./kitty/default.nix
     ./nvim/default.nix
     ./mako/default.nix

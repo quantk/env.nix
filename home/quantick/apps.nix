@@ -7,6 +7,7 @@
 
   home.packages = with pkgs; [
     wofi
+    wlogout
     mako
     hyprlock
     playerctl
