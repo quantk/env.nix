@@ -24,5 +24,6 @@
     #claude-code
     flameshot
     grim
+    thunderbird
   ];
 }

@@ -17,7 +17,7 @@
   "clock": {
     "format": "{:%a %d.%m  %H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
-    "on-click": "gnome-calendar",
+    "on-click": "thunderbird -calendar",
     "tooltip": true
   },
 
