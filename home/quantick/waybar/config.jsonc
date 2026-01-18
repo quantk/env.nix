@@ -85,6 +85,8 @@
     "return-type": "json",
     "interval": 1200,
     "format": "{}",
+    "signal": 8,
+    "on-click": "pkill -SIGRTMIN+8 waybar",
     "tooltip": true
   },
 
