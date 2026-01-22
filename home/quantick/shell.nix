@@ -58,6 +58,9 @@
     shellAliases = {
       # user
       vim = "nvim";
+      ls  = "lsd";
+      df  = "duf";
+      du  = "dust";
 
       # nix / nixos
       nr = "sudo nixos-rebuild switch --flake ~/envix#quantnix";

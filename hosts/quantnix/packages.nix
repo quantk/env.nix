@@ -21,6 +21,18 @@
     pavucontrol
     networkmanagerapplet
     jq
+
+    # Modern Unix
+    bat
+    lsd
+    delta
+    dust
+    duf
+    fd
+    cheat
+    tldr
+    gping
+    procs
   ];
 
   environment.sessionVariables = {
