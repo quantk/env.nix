@@ -11,14 +11,19 @@
     ./users.nix
     ./hyprland.nix
     ./packages.nix
+    ./docker.nix
   ];
 
   nixpkgs.overlays = [
     inputs.nix-vscode-extensions.overlays.default
   ];
 
-  time.timeZone = "Europe/Moscow";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
+  time.timeZone = "Europe/Moscow";
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
 

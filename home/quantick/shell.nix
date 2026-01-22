@@ -47,6 +47,12 @@
       setopt HIST_IGNORE_ALL_DUPS
       setopt SHARE_HISTORY
       setopt INC_APPEND_HISTORY
+
+      export PNPM_HOME="/home/quantick/.local/share/pnpm"
+      case ":$PATH:" in
+        *":$PNPM_HOME:"*) ;;
+        *) export PATH="$PNPM_HOME:$PATH" ;;
+      esac
     '';
 
     shellAliases = {

@@ -7,6 +7,7 @@
     ./shell.nix
     ./vscode.nix
     ./flameshot.nix
+    ./direnv.nix
 
     ./hypr/default.nix
     ./waybar/default.nix

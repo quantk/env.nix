@@ -14,6 +14,8 @@
       "video"
       "audio"
       "networkmanager"
+      "docker"
+      "podman"
     ];
     shell = pkgs.zsh;
   };

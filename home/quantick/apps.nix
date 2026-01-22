@@ -25,5 +25,12 @@
     flameshot
     grim
     thunderbird
+    gemini-cli-bin
+    python314
+    go
+    nodejs
+    playwright
+    playwright-mcp
+    chromium
   ];
 }
