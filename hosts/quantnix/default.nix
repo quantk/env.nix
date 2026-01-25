@@ -7,6 +7,7 @@
     ./boot.nix
     ./nvidia.nix
     ./networking.nix
+    ./print.nix
     ./audio.nix
     ./users.nix
     ./hyprland.nix
