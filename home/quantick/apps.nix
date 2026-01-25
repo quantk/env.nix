@@ -10,6 +10,7 @@
     wlogout
     mako
     hyprlock
+    hyprsunset
     playerctl
     bibata-cursors
     neovim
