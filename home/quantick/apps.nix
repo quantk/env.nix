@@ -33,5 +33,6 @@
     playwright
     playwright-mcp
     chromium
+    obsidian
   ];
 }
