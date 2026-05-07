@@ -7,15 +7,18 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents.url = "github:numtide/llm-agents.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nixpkgs-godot.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      ...
+    { self
+    , nixpkgs
+    , nixpkgs-godot
+    , home-manager
+    , llm-agents
+    , ...
     }@inputs:
     let
       system = "x86_64-linux";
@@ -39,6 +42,15 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.quantick = import ./home/quantick/default.nix;
+          }
+
+          {
+            nixpkgs.overlays = [
+              llm-agents.overlays.default
+              (final: prev: {
+                godot = (import nixpkgs-godot { inherit system; }).godot_4;
+              })
+            ];
           }
         ];
       };

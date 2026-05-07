@@ -17,16 +17,14 @@
     wl-clipboard
     nil
     nixpkgs-fmt
+    zed-editor
     jetbrains.idea
     telegram-desktop
     spotify
     gnome-calendar
-    codex
-    #claude-code
     flameshot
     grim
     thunderbird
-    gemini-cli-bin
     python314
     go
     nodejs
@@ -34,5 +32,9 @@
     playwright-mcp
     chromium
     obsidian
+    libreoffice
+    qbittorrent
+    zathura
+    zathuraPkgs."zathura_pdf_mupdf"
   ];
 }

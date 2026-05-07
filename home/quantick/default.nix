@@ -22,6 +22,16 @@
   home.homeDirectory = "/home/quantick";
   home.stateVersion = "26.05";
 
+  xdg.mimeApps = {
+    enable = true;
+
+    defaultApplications = {
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+      "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+      "x-scheme-handler/tonsite" = [ "org.telegram.desktop.desktop" ];
+    };
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";

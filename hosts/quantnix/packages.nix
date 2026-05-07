@@ -21,8 +21,26 @@
     pavucontrol
     networkmanagerapplet
     jq
+    nautilus
+    geeqie
+    gcalcli
+    bambu-studio
+    tmux
+    google-chrome
+
+    # AI Tools
+    llm-agents.claude-code
+    llm-agents.pi
+    llm-agents.codex
+    llm-agents.opencode
+
+    godot
+
+
+    rpi-imager
 
     # Modern Unix
+    ast-grep
     bat
     lsd
     delta

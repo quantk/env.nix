@@ -16,6 +16,8 @@
       "networkmanager"
       "docker"
       "podman"
+      "dialout"
+      "tty"
     ];
     shell = pkgs.zsh;
   };

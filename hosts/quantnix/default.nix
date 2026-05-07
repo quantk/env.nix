@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -24,13 +24,21 @@
     "flakes"
   ];
   
-  environment.variables = {
-    NPM_CONFIG_REGISTRY = "https://registry.npmmirror.com";
-  };
+#  environment.variables = {
+#    NPM_CONFIG_REGISTRY = "https://registry.npmmirror.com";
+#  };
 
   time.timeZone = "Europe/Moscow";
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+    ];
+  };
 
   system.stateVersion = "26.05";
 }
