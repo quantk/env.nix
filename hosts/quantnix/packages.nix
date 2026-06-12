@@ -24,14 +24,17 @@
     nautilus
     geeqie
     gcalcli
-    bambu-studio
     tmux
     google-chrome
+    rustc
+    cargo
+    gcc
+    bubblewrap
+    ansible
 
     # AI Tools
     llm-agents.claude-code
     llm-agents.pi
-    llm-agents.codex
     llm-agents.opencode
 
     godot

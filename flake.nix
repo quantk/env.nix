@@ -10,6 +10,10 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixpkgs-godot.url = "github:NixOS/nixpkgs/nixos-unstable";
+    herdr = {
+      url = "github:ogulcancelik/herdr/v0.6.10";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -49,6 +53,7 @@
               llm-agents.overlays.default
               (final: prev: {
                 godot = (import nixpkgs-godot { inherit system; }).godot_4;
+                herdr = inputs.herdr.packages.${system}.default;
               })
             ];
           }

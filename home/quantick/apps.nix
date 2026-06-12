@@ -27,6 +27,7 @@
     thunderbird
     python314
     go
+    gopls
     nodejs
     playwright
     playwright-mcp
@@ -36,5 +37,9 @@
     qbittorrent
     zathura
     zathuraPkgs."zathura_pdf_mupdf"
+    tree-sitter
+    stylua
+    gcc
+    herdr
   ];
 }
