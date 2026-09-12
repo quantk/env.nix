@@ -13,6 +13,7 @@
     ./hyprland.nix
     ./packages.nix
     ./docker.nix
+    ./k3s.nix
   ];
 
   nixpkgs.overlays = [
@@ -23,10 +24,10 @@
     "nix-command"
     "flakes"
   ];
-  
-#  environment.variables = {
-#    NPM_CONFIG_REGISTRY = "https://registry.npmmirror.com";
-#  };
+
+  #  environment.variables = {
+  #    NPM_CONFIG_REGISTRY = "https://registry.npmmirror.com";
+  #  };
 
   time.timeZone = "Europe/Moscow";
   security.sudo.enable = true;

@@ -1,5 +1,17 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
+let
+  system = pkgs.stdenv.hostPlatform.system;
+  paseoDesktop =
+    inputs.paseo.packages.${system}.desktop.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        pty_dir="$out/share/paseo-desktop/packages/server/node_modules/node-pty/prebuilds"
+        mkdir -p "$pty_dir"
+        cp -a packages/server/node_modules/node-pty/prebuilds/linux-x64 "$pty_dir/"
+        test -f "$pty_dir/linux-x64/pty.node"
+      '';
+    });
+in
 {
   # =========================
   # Packages
@@ -31,11 +43,14 @@
     gcc
     bubblewrap
     ansible
+    jdk21
+    kubernetes-helm
 
     # AI Tools
-    llm-agents.claude-code
     llm-agents.pi
     llm-agents.opencode
+    llm-agents.claude-code
+    paseoDesktop
 
     godot
 

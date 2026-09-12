@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  # programs.codexDesktopLinux.enable = true;
+
   # =========================
   # Home Apps
   # =========================
@@ -41,5 +43,8 @@
     stylua
     gcc
     herdr
+    gh
+    yt-dlp
+    uv
   ];
 }
