@@ -1,66 +1,63 @@
-{ inputs, pkgs, ... }:
+# ==========================================================
+# Системные пакеты — доступны всем пользователям
+#
+# Пакеты конкретных подсистем живут в своих модулях
+# (audio, hyprland, fonts). Личные приложения —
+# в home/quantick/packages.nix
+# ==========================================================
+{ pkgs, ... }:
 
-let
-  system = pkgs.stdenv.hostPlatform.system;
-in
 {
-  # =========================
-  # Packages
-  # =========================
-
   environment.systemPackages = with pkgs; [
+    # --- База ---
     git
     less
-    ripgrep
-    nerd-fonts.jetbrains-mono
-    noto-fonts-color-emoji
-    zsh-powerlevel10k
     wget
+    jq
+    tmux
+    ranger
     htop
     btop
-    ranger
-    kitty
-    firefox
-    pavucontrol
-    networkmanagerapplet
-    wireguard-tools
-    jq
-    nautilus
-    geeqie
-    gcalcli
-    tmux
-    google-chrome
-    rustc
-    cargo
-    gcc
     bubblewrap
-    ansible
-    jdk21
-    kubernetes-helm
-    zoom-us
+    wireguard-tools
+    zsh-powerlevel10k
 
-    # AI Tools
-    llm-agents.opencode
-
-    blender
-
-    rpi-imager
-
-    # Modern Unix
-    ast-grep
-    bat
-    lsd
-    delta
-    dust
-    duf
-    fd
+    # --- Modern Unix (замены классике) ---
+    ripgrep # grep
+    fd # find
+    bat # cat
+    lsd # ls
+    delta # diff (для git)
+    dust # du
+    duf # df
+    procs # ps
+    gping # ping
+    ast-grep # структурный поиск по коду
     cheat
     tldr
-    gping
-    procs
-  ];
 
-  environment.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
-  };
+    # --- Графика / GUI ---
+    firefox
+    google-chrome
+    nautilus
+    geeqie
+    networkmanagerapplet
+
+    # --- Разработка ---
+    gcc
+    rustc
+    cargo
+    jdk21
+    ansible
+    kubernetes-helm
+
+    # --- AI ---
+    llm-agents.opencode
+
+    # --- Прочее ---
+    gcalcli
+    zoom-us
+    blender
+    rpi-imager
+  ];
 }

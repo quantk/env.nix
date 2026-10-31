@@ -1,64 +1,62 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║  envix — NixOS + Home Manager окружение                  ║
+# ║                                                          ║
+# ║  hosts/quantnix/   система (ядро, железо, сервисы, DE)   ║
+# ║  home/quantick/    пользователь (приложения, конфиги)    ║
+# ║                                                          ║
+# ║  Применить:  sudo nixos-rebuild switch --flake .#quantnix║
+# ╚══════════════════════════════════════════════════════════╝
 {
-  description = "Hyprland on NixOS";
+  description = "envix — Hyprland on NixOS (host: quantnix)";
 
+  # ==========================================================
+  # Inputs — откуда берутся пакеты и модули
+  # ==========================================================
   inputs = {
+    # Основная пакетная база (rolling release)
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Декларативный $HOME: ~/.config, пользовательские пакеты
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    llm-agents.url = "github:numtide/llm-agents.nix";
-    codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
+
+    # Расширения VS Code → pkgs.vscode-marketplace.*
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    herdr = {
-      url = "github:ogulcancelik/herdr/v0.7.5";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    # AI-агенты (opencode и др.) → pkgs.llm-agents.*
+    llm-agents.url = "github:numtide/llm-agents.nix";
+
+    # Codex Desktop для Linux (HM-модуль, включается в home/quantick/packages.nix)
+    codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , llm-agents
-    , ...
-    }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    in
-    {
-      nixosConfigurations.quantnix = nixpkgs.lib.nixosSystem {
-        inherit system;
-        pkgs = pkgs;
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./hosts/quantnix/default.nix
+  # ==========================================================
+  # Outputs — что флейк собирает
+  # ==========================================================
+  outputs = { nixpkgs, home-manager, ... }@inputs: {
+    nixosConfigurations.quantnix = nixpkgs.lib.nixosSystem {
+      # `inputs` доступен в любом модуле как аргумент
+      specialArgs = { inherit inputs; };
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [
+      modules = [
+        # --- Система ---
+        ./hosts/quantnix/default.nix
+
+        # --- Пользователь (Home Manager как модуль NixOS) ---
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true; # тот же pkgs (с оверлеями и unfree), что у системы
+            useUserPackages = true; # home.packages ставятся в /etc/profiles/per-user
+            sharedModules = [
               inputs.codex-desktop-linux.homeManagerModules.default
             ];
-            home-manager.users.quantick = import ./home/quantick/default.nix;
-          }
-
-          {
-            nixpkgs.overlays = [
-              llm-agents.overlays.shared-nixpkgs
-              (final: prev: {
-                herdr = inputs.herdr.packages.${system}.default;
-              })
-            ];
-          }
-        ];
-      };
+            users.quantick = import ./home/quantick/default.nix;
+          };
+        }
+      ];
     };
+  };
 }

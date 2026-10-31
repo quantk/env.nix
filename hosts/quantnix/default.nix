@@ -1,45 +1,45 @@
-{ inputs, pkgs, ... }:
+# ==========================================================
+# Хост quantnix — точка входа системной конфигурации
+#
+# system/    загрузка, nix, пользователи, сеть
+# hardware/  GPU, звук, принтеры
+# desktop/   Hyprland, логин-менеджер, шрифты
+# services/  контейнеры и кластер
+# ==========================================================
+{ ... }:
 
 {
   imports = [
+    # Сгенерировано nixos-generate-config — руками не трогать
     ./hardware-configuration.nix
 
-    ./boot.nix
-    ./nvidia.nix
-    ./networking.nix
-    ./print.nix
-    ./audio.nix
-    ./users.nix
-    ./hyprland.nix
+    # --- Система ---
+    ./system/boot.nix
+    ./system/nix.nix
+    ./system/users.nix
+    ./system/networking.nix
+
+    # --- Железо ---
+    ./hardware/nvidia.nix
+    ./hardware/audio.nix
+    ./hardware/print.nix
+
+    # --- Рабочий стол ---
+    ./desktop/hyprland.nix
+    ./desktop/greetd.nix
+    ./desktop/fonts.nix
+
+    # --- Сервисы ---
+    ./services/docker.nix
+    ./services/k3s.nix
+
+    # --- Системные пакеты ---
     ./packages.nix
-    ./docker.nix
-    ./k3s.nix
   ];
-
-  nixpkgs.overlays = [
-    inputs.nix-vscode-extensions.overlays.default
-  ];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  #  environment.variables = {
-  #    NPM_CONFIG_REGISTRY = "https://registry.npmmirror.com";
-  #  };
 
   time.timeZone = "Europe/Moscow";
-  security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = true;
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc.lib
-      zlib
-      openssl
-    ];
-  };
 
+  # Версия NixOS, с которой система установлена.
+  # НЕ менять при обновлениях — влияет на миграции stateful-данных.
   system.stateVersion = "26.05";
 }

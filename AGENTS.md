@@ -1,10 +1,21 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `flake.nix` defines the NixOS configuration output and inputs.
-- `hosts/quantnix/` contains machine-specific NixOS modules (boot, networking, audio, GPU, packages, users, Hyprland).
-- `home/quantick/` holds Home Manager modules for user apps and UI (e.g., `hypr/`, `waybar/`, `kitty/`, `nvim/`, `mako/`, `wofi/`).
-- Config assets live alongside their modules (e.g., `home/quantick/waybar/config.jsonc`, `home/quantick/wofi/style.css`).
+- `flake.nix` defines inputs and wires the host + Home Manager together.
+- `hosts/quantnix/` — system modules, imported from `default.nix`:
+  - `system/` boot, nix settings (unfree, overlays, nix-ld), users + sudo, networking
+  - `hardware/` NVIDIA, audio, printing
+  - `desktop/` Hyprland + session packages, greetd login, fonts/cursor
+  - `services/` docker, k3s
+  - `packages.nix` general system packages
+- `home/quantick/` — Home Manager modules, imported from `default.nix`:
+  - `desktop/` `hypr/`, `waybar/`, `wofi/`, `mako/`, `wlogout/`, `flameshot.nix`
+  - `terminal/` `ghostty.nix`, `zsh.nix`, `direnv.nix`
+  - `dev/` `git.nix`, `nvim/`, `vscode.nix`
+  - `packages.nix` user apps
+- Config assets live alongside their modules (e.g., `home/quantick/desktop/waybar/config.jsonc`).
+- Each package is listed in exactly one place; subsystem packages live in their subsystem module.
+- New files must be `git add`ed before rebuild — flakes only see tracked files.
 
 ## Build, Test, and Development Commands
 - `nixos-rebuild switch --flake .#quantnix` applies the full system + Home Manager configuration.
@@ -15,7 +26,7 @@
 ## Coding Style & Naming Conventions
 - Nix files use two-space indentation and consistent attribute alignment.
 - Keep modules focused by area (e.g., `boot.nix`, `audio.nix`), and add new modules under `hosts/quantnix/` or `home/quantick/` accordingly.
-- Format Nix with `nixpkgs-fmt` (installed via `home/quantick/apps.nix`; VS Code config sets `nix.formatterPath`).
+- Format Nix with `nixpkgs-fmt` (installed via `home/quantick/packages.nix`; VS Code config sets `nix.formatterPath`).
 - Config files keep their native formats (JSONC, CSS, INI-like configs).
 
 ## Testing Guidelines
