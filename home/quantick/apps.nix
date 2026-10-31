@@ -46,5 +46,6 @@
     gh
     yt-dlp
     uv
+    sing-box
   ];
 }

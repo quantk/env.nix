@@ -8,13 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
-    paseo = {
-      url = "github:getpaseo/paseo";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nixpkgs-godot.url = "github:NixOS/nixpkgs/nixos-unstable";
     herdr = {
       url = "github:ogulcancelik/herdr/v0.7.5";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +19,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-godot
     , home-manager
     , llm-agents
     , ...
@@ -60,7 +54,6 @@
             nixpkgs.overlays = [
               llm-agents.overlays.shared-nixpkgs
               (final: prev: {
-                godot = (import nixpkgs-godot { inherit system; }).godot_4;
                 herdr = inputs.herdr.packages.${system}.default;
               })
             ];
