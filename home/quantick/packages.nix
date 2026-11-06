@@ -29,10 +29,13 @@
     python314
     uv # пакетный менеджер Python
     nodejs
+    maven
     tree-sitter
     stylua # форматтер Lua (для nvim-конфига)
 
     # --- Dev-инструменты ---
+    dbeaver-bin
+    postman
     gh # GitHub CLI
     playwright
     playwright-mcp
