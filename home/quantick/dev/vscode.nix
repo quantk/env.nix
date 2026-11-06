@@ -25,9 +25,6 @@
           "editor.defaultFormatter" = "jnoortheen.nix-ide";
           "editor.formatOnSave" = true;
         };
-        "files.associations" = {
-          "*.nix" = "nix";
-        };
       };
     };
   };

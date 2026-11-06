@@ -65,7 +65,6 @@
 | [`home-manager`](https://github.com/nix-community/home-manager) | подключён как модуль NixOS |
 | [`nix-vscode-extensions`](https://github.com/nix-community/nix-vscode-extensions) | оверлей `pkgs.vscode-marketplace.*` |
 | [`llm-agents`](https://github.com/numtide/llm-agents.nix) | оверлей `pkgs.llm-agents.*` (opencode и др.) |
-| [`codex-desktop-linux`](https://github.com/ilysenko/codex-desktop-linux) | HM-модуль Codex Desktop |
 
 ---
 
@@ -110,7 +109,7 @@ home/quantick/             # пользователь (Home Manager)
 ├── default.nix            # точка входа, xdg mimeApps
 ├── desktop/               # hypr/, waybar/, wofi/, mako/, wlogout/, flameshot.nix
 ├── terminal/              # ghostty, zsh, direnv
-├── dev/                   # git, nvim/, vscode
+├── dev/                   # git, nvim/, vscode, claude
 └── packages.nix           # пользовательские приложения
 ```
 

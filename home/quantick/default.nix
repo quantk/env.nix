@@ -28,6 +28,7 @@
     ./dev/git.nix
     ./dev/nvim/default.nix
     ./dev/vscode.nix
+    ./dev/claude.nix
   ];
 
   home.username = "quantick";

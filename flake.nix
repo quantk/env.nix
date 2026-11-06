@@ -27,9 +27,6 @@
 
     # AI-агенты (opencode и др.) → pkgs.llm-agents.*
     llm-agents.url = "github:numtide/llm-agents.nix";
-
-    # Codex Desktop для Linux (HM-модуль, включается в home/quantick/packages.nix)
-    codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
   };
 
   # ==========================================================
@@ -50,9 +47,6 @@
           home-manager = {
             useGlobalPkgs = true; # тот же pkgs (с оверлеями и unfree), что у системы
             useUserPackages = true; # home.packages ставятся в /etc/profiles/per-user
-            sharedModules = [
-              inputs.codex-desktop-linux.homeManagerModules.default
-            ];
             users.quantick = import ./home/quantick/default.nix;
           };
         }

@@ -11,7 +11,7 @@
 - `home/quantick/` — Home Manager modules, imported from `default.nix`:
   - `desktop/` `hypr/`, `waybar/`, `wofi/`, `mako/`, `wlogout/`, `flameshot.nix`
   - `terminal/` `ghostty.nix`, `zsh.nix`, `direnv.nix`
-  - `dev/` `git.nix`, `nvim/`, `vscode.nix`
+  - `dev/` `git.nix`, `nvim/`, `vscode.nix`, `claude.nix`
   - `packages.nix` user apps
 - Config assets live alongside their modules (e.g., `home/quantick/desktop/waybar/config.jsonc`).
 - Each package is listed in exactly one place; subsystem packages live in their subsystem module.

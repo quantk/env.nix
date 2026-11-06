@@ -6,13 +6,10 @@
 {
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.graphics.enable = true; # OpenGL / Vulkan / VA-API
-
   hardware.nvidia = {
     modesetting.enable = true; # обязательно для Wayland (nvidia-drm.modeset=1)
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = false; # закрытые модули ядра (не open-gpu-kernel-modules)
-    nvidiaSettings = true; # GUI nvidia-settings
   };
 
   # Драйвер USB-C контроллера на картах NVIDIA (Cypress CCGx).

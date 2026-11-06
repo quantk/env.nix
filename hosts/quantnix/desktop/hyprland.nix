@@ -9,10 +9,8 @@
 {
   # Ставит Hyprland, регистрирует wayland-сессию,
   # включает xdg-desktop-portal-hyprland
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true; # для X11-приложений
-  };
+  # (XWayland включён по умолчанию)
+  programs.hyprland.enable = true;
 
   # --- Компоненты сессии ---
   environment.systemPackages = with pkgs; [
@@ -24,19 +22,14 @@
     wofi # лаунчер
     wlogout # меню выключения
     mako # уведомления
-    xdg-desktop-portal
   ];
 
   # --- Переменные Wayland-сессии ---
+  # XDG_CURRENT_DESKTOP / XDG_SESSION_TYPE Hyprland выставляет сам,
+  # Firefox работает в Wayland по умолчанию
   environment.sessionVariables = {
-    XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-
-    # Electron/Chromium/Firefox — нативно в Wayland
+    # Electron/Chromium — нативно в Wayland (обёртки nixpkgs)
     NIXOS_OZONE_WL = "1";
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";
-    MOZ_ENABLE_WAYLAND = "1";
 
     # Курсор на NVIDIA: Hyprland сам отключает hw-курсоры
     # (cursor:no_hardware_cursors = 2 по умолчанию), env-переменная не нужна

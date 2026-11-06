@@ -1,7 +1,7 @@
 # ==========================================================
 # Zsh — oh-my-zsh + Powerlevel10k, алиасы
 # ==========================================================
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   programs.zsh = {
@@ -14,7 +14,7 @@
     # --- oh-my-zsh ---
     oh-my-zsh = {
       enable = true;
-      theme = "robbyrussell"; # перекрывается p10k ниже
+      theme = ""; # тема — Powerlevel10k (initContent)
       plugins = [
         "git"
         "sudo" # Esc Esc — добавить sudo к команде
@@ -25,43 +25,47 @@
       ];
     };
 
-    initContent = ''
-      # --- Powerlevel10k: instant prompt (должен идти первым) ---
-      if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
+    initContent = lib.mkMerge [
+      # До oh-my-zsh: instant prompt и переменные, которые он читает при загрузке
+      (lib.mkBefore ''
+        # --- Powerlevel10k: instant prompt (должен идти первым) ---
+        if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
 
-      # --- oh-my-zsh: без автообновлений (всё управляется Nix) ---
-      export DISABLE_AUTO_UPDATE="true"
-      export ZSH_DISABLE_COMPFIX="true"
-      export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD="true"
+        # oh-my-zsh лежит в read-only Nix store: не проверять права
+        export ZSH_DISABLE_COMPFIX="true"
+        export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD="true"
+      '')
 
-      # --- Powerlevel10k: тема + конфиг (см. .p10k.zsh ниже) ---
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      [[ -f ~/.config/zsh/.p10k.zsh ]] && source ~/.config/zsh/.p10k.zsh
+      ''
+        # --- Powerlevel10k: тема + конфиг (см. .p10k.zsh ниже) ---
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        [[ -f ~/.config/zsh/.p10k.zsh ]] && source ~/.config/zsh/.p10k.zsh
 
-      # --- Кэш автодополнения ---
-      zstyle ':completion:*' use-cache on
-      zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/zcompcache"
+        # --- Кэш автодополнения ---
+        zstyle ':completion:*' use-cache on
+        zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/zcompcache"
 
-      # --- История: без дублей, общая между терминалами ---
-      setopt HIST_IGNORE_ALL_DUPS
-      setopt SHARE_HISTORY
-      setopt INC_APPEND_HISTORY
+        # --- История: без дублей, общая между терминалами ---
+        setopt HIST_IGNORE_ALL_DUPS
+        setopt SHARE_HISTORY
+        setopt INC_APPEND_HISTORY
 
-      # --- PATH: бинарники вне Nix (pnpm, npm -g, pip --user) ---
-      export PNPM_HOME="/home/quantick/.local/share/pnpm"
-      case ":$PATH:" in
-        *":$PNPM_HOME:"*) ;;
-        *) export PATH="$PNPM_HOME:$PATH" ;;
-      esac
+        # --- PATH: бинарники вне Nix (pnpm, npm -g, pip --user) ---
+        export PNPM_HOME="/home/quantick/.local/share/pnpm"
+        case ":$PATH:" in
+          *":$PNPM_HOME:"*) ;;
+          *) export PATH="$PNPM_HOME:$PATH" ;;
+        esac
 
-      export PATH="$HOME/.local/bin:$PATH"
-      export PATH="$HOME/.npm-global/bin:$PATH"
+        export PATH="$HOME/.local/bin:$PATH"
+        export PATH="$HOME/.npm-global/bin:$PATH"
 
-      # --- Прочее ---
-      export OPENCODE_DISABLE_MODELS_FETCH=1
-    '';
+        # --- Прочее ---
+        export OPENCODE_DISABLE_MODELS_FETCH=1
+      ''
+    ];
 
     shellAliases = {
       # --- Modern Unix ---

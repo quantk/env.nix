@@ -20,7 +20,6 @@
     btop
     bubblewrap
     wireguard-tools
-    zsh-powerlevel10k
 
     # --- Modern Unix (замены классике) ---
     ripgrep # grep
@@ -41,7 +40,6 @@
     google-chrome
     nautilus
     geeqie
-    networkmanagerapplet
 
     # --- Разработка ---
     gcc

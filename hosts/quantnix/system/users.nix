@@ -6,7 +6,6 @@
 {
   users.users.quantick = {
     isNormalUser = true;
-    home = "/home/quantick";
     description = "quantick";
     shell = pkgs.zsh;
 
@@ -26,9 +25,9 @@
   # Сам конфиг zsh — в home/quantick/terminal/zsh.nix
   programs.zsh.enable = true;
 
-  # --- sudo ---
-  security.sudo = {
-    enable = true;
-    wheelNeedsPassword = true;
-  };
+  # --- sudo (включён по умолчанию, wheel — с паролем) ---
+  # pwfeedback: показывать * при вводе пароля
+  security.sudo.extraConfig = ''
+    Defaults pwfeedback
+  '';
 }

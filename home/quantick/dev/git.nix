@@ -15,7 +15,6 @@
 
       pull.rebase = true; # pull = fetch + rebase, без merge-коммитов
       init.defaultBranch = "master";
-      core.editor = "nvim";
     };
   };
 }

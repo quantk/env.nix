@@ -7,8 +7,6 @@
 { pkgs, ... }:
 
 {
-  # programs.codexDesktopLinux.enable = true;
-
   home.packages = with pkgs; [
     # --- Wayland-утилиты ---
     wl-clipboard # wl-copy / wl-paste
@@ -37,9 +35,7 @@
     dbeaver-bin
     postman
     gh # GitHub CLI
-    playwright
     playwright-mcp
-    chromium # браузер для playwright
 
     # --- Связь ---
     telegram-desktop
