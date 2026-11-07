@@ -1,68 +1,77 @@
-/* === Global === */
+/* ==========================================================
+   Wofi — палитра «Twilight»; блюр — layerrule в hyprland.conf
+   ========================================================== */
 * {
-  font-family: "JetBrainsMono Nerd Font", "Inter", monospace;
-  font-size: 14px;
+  font-family: "Inter", "JetBrainsMono Nerd Font";
+  font-size: 15px;
 }
 
-/* === Window === */
 window {
-  background-color: rgba(24, 24, 37, 0.96); /* deep dark */
-  border-radius: 16px;
-  border: 1px solid rgba(137, 180, 250, 0.15);
+  background-color: rgba(15, 14, 26, 0.72);
+  border: 1px solid rgba(180, 167, 255, 0.22);
+  border-radius: 22px;
 }
 
-/* === Input === */
+#outer-box {
+  padding: 16px;
+}
+
+/* --- Поиск --- */
 #input {
-  margin: 14px;
-  padding: 10px 14px;
-  border-radius: 12px;
-
-  background-color: #1e1e2e;
-  color: #cdd6f4;
-
-  border: 1px solid rgba(137, 180, 250, 0.25);
+  margin: 0 0 12px 0;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(180, 167, 255, 0.18);
+  background-color: rgba(180, 167, 255, 0.07);
+  color: #e6e3f5;
+  font-size: 16px;
+  box-shadow: none;
 }
 
 #input:focus {
-  border-color: #89b4fa;
+  border-color: rgba(180, 167, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(180, 167, 255, 0.12);
 }
 
-/* === Scroll === */
-#scroll {
-  margin: 0 10px 10px 10px;
+#input image {
+  color: #b4a7ff;
 }
 
-/* === Entries === */
+#scroll,
+#inner-box {
+  background: transparent;
+}
+
+/* --- Пункты --- */
 #entry {
-  margin: 4px 10px;
-  padding: 10px 14px;
+  margin: 2px 0;
+  padding: 8px 12px;
   border-radius: 12px;
-
-  background-color: transparent;
-  color: #bac2de;
+  background: transparent;
+  color: #a9a4c9;
+  transition: all 140ms ease;
 }
 
 #entry:selected {
   background: linear-gradient(
     90deg,
-    rgba(137, 180, 250, 0.25),
-    rgba(203, 166, 247, 0.25)
+    rgba(138, 164, 255, 0.28),
+    rgba(180, 167, 255, 0.22) 50%,
+    rgba(245, 163, 215, 0.24)
   );
-  color: #f5e0dc;
+  border: none;
+  outline: none;
 }
 
-/* === Icons === */
+#entry:selected #text {
+  color: #ffffff;
+  font-weight: 600;
+}
+
 #entry image {
-  margin-right: 12px;
+  margin-right: 14px;
 }
 
-/* === Text === */
 #text {
   color: inherit;
 }
-
-/* === Subtle separator effect === */
-#entry:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-

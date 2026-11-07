@@ -1,16 +1,32 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 50,
-  "spacing": 10,
+  "height": 42,
+  "spacing": 0,
+  "margin-top": 10,
+  "margin-left": 14,
+  "margin-right": 14,
 
-  "modules-left": ["cpu", "memory", "network"],
+  "modules-left": ["custom/launcher", "cpu", "memory", "network"],
   "modules-center": ["hyprland/workspaces", "clock", "custom/weather"],
-  "modules-right": ["mpris", "pulseaudio", "tray", "hyprland/language"],
+  "modules-right": ["mpris", "pulseaudio", "tray", "hyprland/language", "custom/power"],
+
+  "custom/launcher": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "wofi --show drun -G"
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "wlogout -b 4 -T 380 -B 380"
+  },
 
   "hyprland/workspaces": {
-    "format": "{name}",
-    "on-click": "hyprctl dispatch workspace {name}",
+    "format": "",                // точки рисует style.css
+    "persistent-workspaces": { "*": 5 },
+    "on-click": "activate",
     "disable-scroll": true
   },
 
@@ -22,8 +38,9 @@
   },
 
   "mpris": {
-    "format": " {player_icon} {artist} - {title}",
-    "format-paused": " {player_icon} {artist} - {title} (paused)",
+    "format": "{status_icon} {player_icon} {dynamic}",
+    "dynamic-order": ["artist", "title"],
+    "dynamic-separator": " · ",
     "player-icons": {
       "spotify": "",
       "default": ""

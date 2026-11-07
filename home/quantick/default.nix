@@ -18,6 +18,7 @@
     ./desktop/mako/default.nix
     ./desktop/wlogout/default.nix
     ./desktop/flameshot.nix
+    ./desktop/theme.nix
 
     # --- Терминал ---
     ./terminal/ghostty.nix

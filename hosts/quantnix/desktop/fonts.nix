@@ -6,6 +6,7 @@
 {
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono # моноширинный + иконки (waybar, nvim)
+    inter # UI-шрифт: панель, лаунчер, уведомления, экран блокировки
     noto-fonts-color-emoji
   ];
 

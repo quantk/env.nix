@@ -1,0 +1,49 @@
+// ==========================================================
+// envix — общий пролог всех тем (склеивается перед темой)
+//
+// Тема определяет две функции:
+//   theme_init()        — создать спрайты
+//   theme_update(t, f)  — кадр; t — секунды, f — общая яркость 0..1
+// ==========================================================
+
+Window.SetBackgroundTopColor(0.059, 0.055, 0.102); // #0f0e1a, как у waybar
+Window.SetBackgroundBottomColor(0.059, 0.055, 0.102);
+
+W = Window.GetWidth();
+H = Window.GetHeight();
+CX = Window.GetX() + W / 2;
+CY = Window.GetY() + H / 2;
+U = H / 1440; // 1 на 2K; вся геометрия задаётся в «пикселях 2K»
+
+TAU = 2 * Math.Pi;
+MODE = Plymouth.GetMode(); // boot | shutdown | reboot | updates | ...
+
+t = 0;
+fade = 0;
+ui_mode = "normal";
+
+// --- Точки: готовые PNG dot-2.png … dot-40.png под каждый размер ---
+// (Plymouth масштабирует билинейно — мелкие точки лучше не сжимать)
+dot_cache = null;
+fun dot_image(px) {
+  local.k = Math.Int(px + 0.5);
+  if (k < 2) k = 2;
+  if (k > 40) k = 40;
+  if (!dot_cache[k]) dot_cache[k] = Image("dot-" + k + ".png");
+  return dot_cache[k];
+}
+
+// Поставить спрайт центром в (x, y)
+fun place(sprite, img, x, y, z) {
+  sprite.SetPosition(x - img.GetWidth() / 2, y - img.GetHeight() / 2, z);
+}
+
+fun frac(x) {
+  return x - Math.Int(x);
+}
+
+// Плавный старт/финиш 0..1
+fun smooth(x) {
+  x = Math.Clamp(x, 0, 1);
+  return x * x * (3 - 2 * x);
+}

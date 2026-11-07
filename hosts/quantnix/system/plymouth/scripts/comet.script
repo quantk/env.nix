@@ -1,0 +1,50 @@
+// ==========================================================
+// comet — комета с хвостом рисует фигуру Лиссажу; фигура
+// медленно перетекает, а её бледный след виден целиком
+// ==========================================================
+
+TAIL = 90;          // точек в хвосте
+TSTEP = 0.016;      // шаг хвоста по параметру
+SPEED = 0.55;       // скорость кометы
+AX = 470 * U;
+AY = 300 * U;
+FA = 3;             // частоты фигуры 3:2
+FB = 2;
+DRIFT = 0.06;       // скорость перетекания фигуры, рад/с
+GUIDE = 160;        // точек бледного следа
+
+fun theme_init() {
+  for (k = 0; k < TAIL; k++) {
+    local.q = 1 - k / TAIL;
+    local.img = dot_image((3 + 11 * Math.Sqrt(q) * q) * U);
+    global.tail[k].s = Sprite(img);
+    tail[k].hw = img.GetWidth() / 2;
+    tail[k].a = q * q;
+  }
+  global.gimg = dot_image(4 * U);
+  global.ghw = gimg.GetWidth() / 2;
+  for (k = 0; k < GUIDE; k++) global.guide[k] = Sprite(gimg);
+  global.frame = 0;
+}
+
+fun theme_update(t, f) {
+  local.dl = t * DRIFT;
+
+  // след обновляем раз в 5 кадров — он меняется медленно
+  if (frame % 5 == 0) {
+    for (k = 0; k < GUIDE; k++) {
+      local.u = TAU * k / GUIDE;
+      guide[k].SetPosition(CX + AX * Math.Sin(FA * u + dl) - ghw, CY + AY * Math.Sin(FB * u) - ghw, 2);
+      guide[k].SetOpacity(f * 0.14);
+    }
+  }
+  global.frame = frame + 1;
+
+  local.tau = t * SPEED;
+  for (k = 0; k < TAIL; k++) {
+    local.u = tau - k * TSTEP;
+    local.c = tail[k];
+    c.s.SetPosition(CX + AX * Math.Sin(FA * u + dl) - c.hw, CY + AY * Math.Sin(FB * u) - c.hw, 10 - k / TAIL);
+    c.s.SetOpacity(f * c.a);
+  }
+}

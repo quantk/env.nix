@@ -1,0 +1,51 @@
+// ==========================================================
+// ripple — логотип NixOS дышит, с каждым вдохом от него
+// расходится кольцо из точек, как круги по воде
+// ==========================================================
+
+BEAT = 3;      // секунд на один вдох = одно кольцо
+RINGS = 3;     // колец на экране одновременно
+RDOTS = 72;    // точек в кольце
+R0 = 115 * U;  // радиус рождения кольца
+R1 = 560 * U;  // радиус, где кольцо гаснет
+
+LOGO = Math.Int(160 * U);
+logo_img = Image("logo.png");
+if (logo_img.GetWidth() != LOGO) logo_img = logo_img.Scale(LOGO, LOGO);
+
+fun theme_init() {
+  global.logo = Sprite(logo_img);
+  place(logo, logo_img, CX, CY, 10);
+  logo.SetOpacity(0);
+
+  for (k = 0; k < RDOTS; k++) {
+    global.ca[k] = Math.Cos(TAU * k / RDOTS);
+    global.sa[k] = Math.Sin(TAU * k / RDOTS);
+  }
+  for (r = 0; r < RINGS; r++)
+    for (k = 0; k < RDOTS; k++)
+      global.ring[r].dot[k] = Sprite();
+}
+
+fun theme_update(t, f) {
+  // Вдох: резкий подъём и долгий выдох, пик совпадает с рождением кольца
+  local.b = frac(t / BEAT);
+  local.breath = 1 - smooth(b);
+  if (b > 0.85) breath = smooth((b - 0.85) / 0.15);
+  logo.SetOpacity(f * (0.5 + 0.5 * breath));
+
+  for (r = 0; r < RINGS; r++) {
+    local.p = frac(t / (BEAT * RINGS) + r / RINGS);
+    local.e = 1 - (1 - p) * (1 - p);            // ease-out расширения
+    local.rad = R0 + (R1 - R0) * e;
+    local.a = f * 0.7 * (1 - p) * (1 - p) * smooth(p * 12);
+    local.img = dot_image((9 - 5 * p) * U);
+    local.hw = img.GetWidth() / 2;
+    local.dots = ring[r].dot;
+    for (k = 0; k < RDOTS; k++) {
+      dots[k].SetImage(img);
+      dots[k].SetPosition(CX + rad * ca[k] - hw, CY + rad * sa[k] - hw, 5);
+      dots[k].SetOpacity(a);
+    }
+  }
+}

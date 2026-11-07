@@ -1,0 +1,48 @@
+// ==========================================================
+// helix — двойная спираль из точек медленно вращается;
+// ближние точки крупнее и ярче, дальние уходят в тень
+// ==========================================================
+
+N = 56;            // пар точек
+SPAN = 1240 * U;   // ширина спирали
+AMP = 96 * U;      // полувысота
+TURNS = 2.25;      // витков на всю ширину
+SPEED = 1.2;       // рад/с
+SIZES = 12;        // ступеней глубины
+
+fun theme_init() {
+  for (i = 0; i < N; i++) {
+    global.hx[i] = CX - SPAN / 2 + SPAN * i / (N - 1);
+    global.hp[i] = TAU * TURNS * i / (N - 1);
+    // края спирали плавно растворяются
+    local.e = Math.Sin(Math.Pi * (i + 0.5) / N);
+    global.he[i] = e * Math.Sqrt(e);
+    global.ha[i] = Sprite();
+    global.hb[i] = Sprite();
+  }
+  for (d = 0; d < SIZES; d++) {
+    local.img = dot_image((4 + 9 * d / (SIZES - 1)) * U);
+    global.himg[d] = img;
+    global.hhw[d] = img.GetWidth() / 2;
+  }
+}
+
+fun put(s, x, y, z, f, env) {
+  local.depth = (z + 1) / 2; // 0 — дальняя, 1 — ближняя
+  local.d = Math.Int(depth * (SIZES - 1) + 0.5);
+  s.SetImage(himg[d]);
+  s.SetPosition(x - hhw[d], y - hhw[d], 5 + d);
+  s.SetOpacity(f * env * (0.12 + 0.88 * depth * depth));
+}
+
+fun theme_update(t, f) {
+  // лёгкое «дыхание» амплитуды, чтобы не было механики
+  local.amp = AMP * (0.85 + 0.15 * Math.Sin(t * 0.4));
+  for (i = 0; i < N; i++) {
+    local.ph = hp[i] - t * SPEED;
+    local.y = amp * Math.Sin(ph);
+    local.z = Math.Cos(ph);
+    put(ha[i], hx[i], CY + y, z, f, he[i]);
+    put(hb[i], hx[i], CY - y, -z, f, he[i]);
+  }
+}

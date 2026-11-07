@@ -1,0 +1,71 @@
+// ==========================================================
+// envix — общий эпилог: цикл кадров, пароль, сообщения
+// ==========================================================
+
+theme_init();
+
+fun envix_refresh() {
+  global.t = t + 0.02; // Plymouth зовёт refresh 50 раз в секунду
+
+  local.target = 1;
+  if (ui_mode == "password") target = 0.3;
+  global.fade = fade + (target - fade) * 0.05; // мягкое появление и приглушение
+
+  theme_update(t, fade);
+}
+Plymouth.SetRefreshFunction(envix_refresh);
+
+// --- Пароль / вопрос: строка точек под анимацией ---
+pw = null;
+
+fun envix_draw_entry(label, count) {
+  global.pw = null;
+  local.txt = Image.Text(label, 0.902, 0.890, 0.961, 0.75, "Sans 13");
+  pw.label = Sprite(txt);
+  pw.label.SetPosition(CX - txt.GetWidth() / 2, CY + 300 * U, 100);
+
+  local.img = dot_image(14 * U);
+  local.gap = 22 * U;
+  local.x0 = CX - (count - 1) * gap / 2;
+  for (i = 0; i < count; i++) {
+    pw.dot[i] = Sprite(img);
+    place(pw.dot[i], img, x0 + i * gap, CY + 350 * U, 100);
+  }
+}
+
+fun envix_password(prompt, bullets) {
+  global.ui_mode = "password";
+  if (prompt == "") prompt = "Пароль";
+  envix_draw_entry(prompt, bullets);
+}
+Plymouth.SetDisplayPasswordFunction(envix_password);
+
+fun envix_question(prompt, entry) {
+  global.ui_mode = "password";
+  global.pw = null;
+  local.q = Image.Text(prompt, 0.902, 0.890, 0.961, 0.75, "Sans 13");
+  pw.label = Sprite(q);
+  pw.label.SetPosition(CX - q.GetWidth() / 2, CY + 300 * U, 100);
+  local.a = Image.Text(entry, 0.902, 0.890, 0.961, 1, "Sans 13");
+  pw.entry = Sprite(a);
+  pw.entry.SetPosition(CX - a.GetWidth() / 2, CY + 340 * U, 100);
+}
+Plymouth.SetDisplayQuestionFunction(envix_question);
+
+fun envix_normal() {
+  global.ui_mode = "normal";
+  global.pw = null;
+}
+Plymouth.SetDisplayNormalFunction(envix_normal);
+
+// --- Сообщения (fsck и т.п.): тихой строкой внизу ---
+msg = null;
+fun envix_message(text) {
+  global.msg = null;
+  if (text != "") {
+    local.img = Image.Text(text, 0.902, 0.890, 0.961, 0.5, "Sans 11");
+    msg.sprite = Sprite(img);
+    msg.sprite.SetPosition(CX - img.GetWidth() / 2, Window.GetY() + H - 80 * U, 100);
+  }
+}
+Plymouth.SetMessageFunction(envix_message);

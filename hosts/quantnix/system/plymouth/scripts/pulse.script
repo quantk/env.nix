@@ -1,0 +1,54 @@
+// ==========================================================
+// pulse — сетка точек на весь экран; из центра медленно
+// расходятся световые волны, сетка «дышит» под ними
+// ==========================================================
+
+GAP = 80 * U;       // шаг сетки
+WAVE = 520 * U;     // расстояние между волнами
+PERIOD = 4.5;       // секунд между волнами
+BASE = 0.13;        // яркость точки в покое
+LEVELS = 24;        // ступеней яркости (меньше вызовов SetOpacity)
+
+fun theme_init() {
+  local.cols = Math.Int(W / GAP);
+  local.rows = Math.Int(H / GAP);
+  local.x0 = CX - (cols - 1) * GAP / 2;
+  local.y0 = CY - (rows - 1) * GAP / 2;
+  local.img = dot_image(9 * U);
+  global.n = 0;
+  for (r = 0; r < rows; r++)
+    for (c = 0; c < cols; c++) {
+      local.x = x0 + c * GAP;
+      local.y = y0 + r * GAP;
+      local.dx = x - CX;
+      local.dy = y - CY;
+      local.d = Math.Sqrt(dx * dx + dy * dy);
+      global.grid[n].s = Sprite(img);
+      place(grid[n].s, img, x, y, 5);
+      grid[n].s.SetOpacity(0);
+      grid[n].ph = d / WAVE;
+      grid[n].fall = 1 / (1 + d / (1400 * U));
+      grid[n].lvl = -1;
+      global.n = n + 1;
+    }
+}
+
+fun theme_update(t, f) {
+  local.tp = t / PERIOD;
+  for (i = 0; i < n; i++) {
+    local.g = grid[i];
+    // гребень волны: импульс cos^4
+    local.c = Math.Cos(TAU * (g.ph - tp));
+    local.p = 0;
+    if (c > 0) {
+      p = c * c;
+      p = p * p;
+    }
+    local.v = f * (BASE + 0.87 * p * g.fall);
+    local.l = Math.Int(v * LEVELS + 0.5);
+    if (l != g.lvl) {
+      g.s.SetOpacity(l / LEVELS);
+      grid[i].lvl = l;
+    }
+  }
+}

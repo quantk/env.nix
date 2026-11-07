@@ -15,6 +15,7 @@
 
     # --- Система ---
     ./system/boot.nix
+    ./system/plymouth
     ./system/nix.nix
     ./system/users.nix
     ./system/networking.nix

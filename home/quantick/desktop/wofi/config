@@ -1,12 +1,16 @@
-# Wofi configuration (application launcher)
-# Wofi in "drun" mode (application menu)
+# ==========================================================
+# Wofi — лаунчер (SUPER+A). Оформление — style.css
+# ==========================================================
 show = drun
-# Appearance settings
-width = 40%
-height = 30%
+width = 640
+height = 440
+location = center
 columns = 1
 hide_scroll = true
-prompt = Launch:
-# Use the custom style.css
+insensitive = true
+allow_images = true
+image_size = 30
+prompt = Поиск…
+no_actions = true
 style = /home/quantick/.config/wofi/style.css
 gtk_dark = true

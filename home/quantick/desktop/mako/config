@@ -1,12 +1,32 @@
-# Mako (Wayland notification daemon) configuration
-font=JetBrainsMono Nerd Font Mono 12
-background-color=#282828
-text-color=#FFFFFF
-border-color=#888888
+# ==========================================================
+# Mako — уведомления. Палитра «Twilight»
+# Блюр — layerrule (namespace notifications) в hyprland.conf
+# ==========================================================
+font=Inter 11
+width=380
+height=160
+margin=14
+padding=14,16
+outer-margin=6
 border-size=2
-padding=8
-default-timeout=5000
-# position (top-right by default); for example:
+border-radius=16
+icons=1
+max-icon-size=48
 anchor=top-right
-# max notifications displayed at once:
+layer=overlay
 max-visible=5
+default-timeout=5000
+
+background-color=#0f0e1ad0
+text-color=#e6e3f5
+border-color=#b4a7ffaa
+progress-color=over #b4a7ff44
+format=<b>%s</b>\n%b
+
+[urgency=low]
+border-color=#8aa4ff66
+text-color=#a9a4c9
+
+[urgency=critical]
+border-color=#ff7a93
+default-timeout=0

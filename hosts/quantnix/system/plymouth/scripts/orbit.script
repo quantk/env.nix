@@ -1,0 +1,45 @@
+// ==========================================================
+// orbit — «маятниковая волна» по кругу: точки на разных орбитах
+// крутятся с чуть разной скоростью и то сплетаются в спирали,
+// то выстраиваются в лучи, раз в PERIOD секунд — в одну линию
+// ==========================================================
+
+N = 40;          // орбит
+PERIOD = 48;     // секунд до полного совпадения
+RMIN = 36 * U;
+RMAX = 420 * U;
+GHOSTS = 3;      // хвост за каждой точкой
+GSTEP = 0.045;   // отставание хвоста, рад
+
+fun theme_init() {
+  for (i = 0; i < N; i++) {
+    local.q = i / (N - 1);
+    global.orb[i].r = RMIN + (RMAX - RMIN) * q;
+    global.orb[i].w = TAU * (N + 10 - i) / PERIOD; // внешние медленнее
+    global.orb[i].a = 0.35 + 0.65 * q;
+    for (g = 0; g <= GHOSTS; g++) {
+      local.img = dot_image((6 + 8 * q) * U * (1 - g * 0.18));
+      orb[i].s[g] = Sprite(img);
+      orb[i].hw[g] = img.GetWidth() / 2;
+      orb[i].k[g] = (1 - g / (GHOSTS + 1)) * (1 - g / (GHOSTS + 1));
+    }
+  }
+  global.core = Sprite(dot_image(10 * U));
+  place(core, dot_image(10 * U), CX, CY, 6);
+}
+
+fun theme_update(t, f) {
+  // начинаем чуть позже линии, чтобы с первого кадра была спираль
+  local.tt = t + 6;
+  core.SetOpacity(f * (0.6 + 0.4 * Math.Sin(t * 1.3)));
+  for (i = 0; i < N; i++) {
+    local.o = orb[i];
+    local.ang = o.w * tt - Math.Pi / 2;
+    for (g = 0; g <= GHOSTS; g++) {
+      local.aa = ang - g * GSTEP;
+      local.hw = o.hw[g];
+      o.s[g].SetPosition(CX + o.r * Math.Cos(aa) - hw, CY + o.r * Math.Sin(aa) - hw, 5 - g);
+      o.s[g].SetOpacity(f * o.a * o.k[g]);
+    }
+  }
+}
