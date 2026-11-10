@@ -27,7 +27,7 @@
 
     # --- Рабочий стол ---
     ./desktop/hyprland.nix
-    ./desktop/greetd.nix
+    ./desktop/greetd
     ./desktop/fonts.nix
 
     # --- Сервисы ---

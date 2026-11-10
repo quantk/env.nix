@@ -107,45 +107,55 @@ tooltip label {
 #network.disconnected { color: @red; }
 
 /* --- Рабочие столы: точки чистым CSS, активный — «пилюля» ---
-   Высота точки = 42 (бар) − 2 (рамка острова) − 2×5 (отступ модуля)
-                 − 2×11 (отступ кнопки) = 8px                          */
+   Кнопка — прозрачная и на всю высоту острова (большая зона клика),
+   а сама точка рисуется на её label.
+   Высота точки = 42 (бар) − 2 (рамка острова) − 2×16 (отступ кнопки) = 8px */
 #workspaces {
-  padding: 0 8px;
+  margin: 0 2px;
+  padding: 0 4px;
 }
 
 #workspaces button {
+  min-width: 0;
+  min-height: 0;
+  padding: 16px 4px;
+  margin: 0;
+  font-size: 0;            /* пустая подпись не должна задавать высоту строки */
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#workspaces button:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+#workspaces button label {
+  font-size: 0;
   min-width: 8px;
   min-height: 8px;
   padding: 0;
-  margin: 11px 4px;
-  font-size: 0;            /* пустая подпись не должна задавать высоту строки */
+  margin: 0;
   border-radius: 8px;
   background: rgba(169, 164, 201, 0.45);   /* есть окна */
   transition: all 260ms cubic-bezier(0.2, 1, 0.2, 1);
 }
 
-#workspaces button label {
-  font-size: 0;
-  min-height: 0;
-  padding: 0;
-  margin: 0;
-}
-
-#workspaces button.empty {
+#workspaces button.empty label {
   background: rgba(110, 106, 143, 0.35);   /* пустой */
 }
 
-#workspaces button:hover {
+#workspaces button:hover label {
   background: @pink;
-  box-shadow: none;
 }
 
-#workspaces button.active {
+#workspaces button.active label {
   min-width: 26px;
   background: linear-gradient(90deg, @sky, @lavender, @pink);
 }
 
-#workspaces button.urgent {
+#workspaces button.urgent label {
   background: @red;
 }
 
