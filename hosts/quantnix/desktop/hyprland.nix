@@ -4,13 +4,27 @@
 # Здесь только «что установлено». Конфиги (биндинги, бар,
 # лаунчер, уведомления) — в home/quantick/desktop/
 # ==========================================================
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  hyprland = config.programs.hyprland.package;
+
+  # Пакет Hyprland кладёт две сессии: hyprland.desktop и hyprland-uwsm.desktop.
+  # UWSM не используем (withUWSM = false, юнитов uwsm нет) — uwsm-сессия
+  # в greeter'е сразу падает. Оставляем только обычную.
+  hyprlandSession = pkgs.runCommand "hyprland-session"
+    { passthru.providedSessions = [ "hyprland" ]; } ''
+    install -Dm644 ${hyprland}/share/wayland-sessions/hyprland.desktop \
+      $out/share/wayland-sessions/hyprland.desktop
+  '';
+in
 {
-  # Ставит Hyprland, регистрирует wayland-сессию,
-  # включает xdg-desktop-portal-hyprland
+  # Ставит Hyprland, включает xdg-desktop-portal-hyprland
   # (XWayland включён по умолчанию)
   programs.hyprland.enable = true;
+
+  # Сессии для greeter'а — только Hyprland без uwsm (см. выше)
+  services.displayManager.sessionPackages = lib.mkForce [ hyprlandSession ];
 
   # --- Компоненты сессии ---
   environment.systemPackages = with pkgs; [
