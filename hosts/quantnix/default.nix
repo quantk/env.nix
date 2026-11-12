@@ -29,6 +29,7 @@
     ./desktop/hyprland.nix
     ./desktop/greetd.nix
     ./desktop/fonts.nix
+    ./desktop/steam.nix
 
     # --- Сервисы ---
     ./services/docker.nix

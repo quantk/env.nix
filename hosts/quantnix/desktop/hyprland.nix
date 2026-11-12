@@ -28,7 +28,8 @@ in
 
   # --- Компоненты сессии ---
   environment.systemPackages = with pkgs; [
-    hyprpaper # обои
+    hyprpaper # обои (запасные, статичные)
+    linux-wallpaperengine # живые обои из Wallpaper Engine
     hyprlock # экран блокировки
     hyprsunset # ночной режим (тёплые цвета)
     hyprpolkitagent # GUI-запрос пароля для polkit
